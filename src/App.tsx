@@ -1,22 +1,29 @@
 // import { useState } from 'react'
 import './App.css'
 import Navbar from './components/navbar'
-import Books from './components/books/books'
+import StickyHeadTable from './components/books/books';
+import MediaControlCard from './components/booksmarks';
+import { useState } from 'react';
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [view, setView] = useState('table');
+  const [bookmarks, setBookmarks] = useState([]);
 
   return (
-    <>
-      <main>
-        <Navbar/>
-        <div className="header">
-          <h2>Lista e Librave</h2>
-        </div>
-        <Books/>
-      </main>
-    </>
-  )
+    <div>
+      <Navbar setView={setView} />
+      <div className="content">
+        {view === 'table' && (
+          <StickyHeadTable
+            bookmarks={bookmarks}
+            setBookmarks={setBookmarks}
+          />
+        )}
+        {view === 'cards' && <MediaControlCard bookmarks={bookmarks} />}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
